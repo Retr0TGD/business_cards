@@ -1,36 +1,23 @@
-import React, { useState } from 'react';
-import { Box } from '@mui/material';
+import React from 'react';
+import './App.css';
 import CardForm from './components/form';
-import Header from './components/header';
-import ContactGrid from './components/contact';
-import Company from './components/company';
 
-const App = () => {
-  const [cardData, setCardData] = useState(null);
-
-  const handleFormSubmit = (data) => {
-    setCardData(data);
-  };
-
+function App() {
   return (
-    <Box>
-      {!cardData ? (
-        <CardForm onSubmit={handleFormSubmit} />
-      ) : (
-        <Box p={4}>
-          <Header name={cardData.name} role={cardData.role} />
-          <ContactGrid 
-            contactInfo={{
-              phone: cardData.phone,
-              website: cardData.website,
-              email: cardData.email
-            }}
-          />
-          <Company companyName="Wardiere Inc." address="123 Business St, City, Country" />
-        </Box>
-      )}
-    </Box>
+    <div className="App">
+      <header className="App-header">
+        <h1>Business Card Generator</h1>
+        <p>Fill out the form to generate a business card</p>
+      </header>
+      <main>
+        <CardForm />
+      </main>
+
+      <footer className="App-footer">
+        <p>© 2024 Business Card Generator</p>
+      </footer>
+    </div>
   );
-};
+}
 
 export default App;

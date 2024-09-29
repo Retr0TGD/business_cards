@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
-import { TextField, Button, Box, Typography } from '@mui/material';
+import { TextField, Button, Box, Typography, Alert } from '@mui/material';
+import QRCode from 'react-qr-code';
 
 const CardForm = ({ onsubmit }) => {
     const [formData, setFormData] = useState({
-        name: '', role: '', phone: '', 
-        website: '', email: ''
+        name: '',
+        role: '',
+        phone: '',
+        website: '',
+        email: ''
     });
 
     const [qrCodeData, setQrCodeData] = useState('');
+    const [error, setError] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -15,26 +20,29 @@ const CardForm = ({ onsubmit }) => {
             ...prevState,
             [name]: value
         }));
+        setError(''); // Reset error message on change
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const { name, role, phone, email, website } = formData;
 
-        if(!name || !role || !phone || !email || !website) {
-            alert("Fill out all fields");
+        if (!name || !role || !phone || !email || !website) {
+            setError("fill out all fields.");
             return;
         }
 
         setQrCodeData(website);
-
-        console.log(formData);
+        console.log("Form submitted:", formData);
     };
 
     return (
         <Box component="form" onSubmit={handleSubmit} p={2} maxWidth="400px" mx="auto">
-            <Typography variant="h6" mb={2}>Fill in your details</Typography>
-            Name
+            <Typography variant="h5" mb={2} textAlign="center">Business Card Form</Typography>
+
+            {/* Show error message */}
+            {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+
             <TextField
                 fullWidth
                 label="Name"
@@ -43,7 +51,7 @@ const CardForm = ({ onsubmit }) => {
                 onChange={handleChange}
                 margin="normal"
                 required
-            />Role
+            />
             <TextField
                 fullWidth
                 label="Role"
@@ -52,52 +60,54 @@ const CardForm = ({ onsubmit }) => {
                 onChange={handleChange}
                 margin="normal"
                 required
-            />Phone
+            />
             <TextField
                 fullWidth
-                label="Phone"
+                label="Phone (e.g. (+1) 111 111 111)"
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
                 margin="normal"
                 required
-            />Website
+            />
             <TextField
                 fullWidth
-                label="linkedin.com/profile"
+                label="Website (e.g. linkedin.com/profile)"
                 name="website"
                 value={formData.website}
                 onChange={handleChange}
                 margin="normal"
                 required
-            />Email
+            />
             <TextField
                 fullWidth
-                label="name@example.com"
+                label="Email (e.g. name@example.com)"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
                 margin="normal"
                 required
             />
-            <Button type="submit" variant="contained" color="primary" fullWidth>
+            <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
                 Generate Business Card
             </Button>
 
             {qrCodeData && (
-                <QRCodeSection data={qrCodeData} />
+                <Box textAlign="center" mt={4}>
+                    <Typography variant="h6" mb={2}>Your QR Code:</Typography>
+                    <QRCodeSection data={qrCodeData} />
+                </Box>
             )}
-
         </Box>
     );
 };
 
 const QRCodeSection = ({ data }) => {
     return (
-      <div>
-        <QRCodeSection value={data} />
-      </div>
+        <div>
+            <QRCode value={data} />
+        </div>
     );
-  };
+};
 
 export default CardForm;
