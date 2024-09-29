@@ -5,7 +5,7 @@ import Header from './components/header';
 import ContactGrid from './components/contact';
 import Company from './components/company';
 
-const App = () => {
+const BusinessCard = () => {
   const [cardData, setCardData] = useState(null);
 
   const handleFormSubmit = (data) => {
@@ -33,4 +33,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default BusinessCard;

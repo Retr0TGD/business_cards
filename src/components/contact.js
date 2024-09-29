@@ -1,20 +1,19 @@
 import React from "react";
 import { Grid2, Typography, Box } from '@mui/material';
-import LanguageIcon from '@mui/icons-material/Language';
-import PhoneIcon from '@mui/icons-material/Phone';
+import PublicIcon from '@mui/icons-material/Public';
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import EmailIcon from '@mui/icons-material/Email';
 import QRCode from 'react-qr-code';
 
-const ContactGrid = ({  contactInfo, qrValue }) => (
+const ContactGrid = ({  contactInfo }) => (
     <Grid2 container spacing={2} alignItems="center">
-        {/* Contact Information */}
         <Grid2 item xs={12} md={6}>
             <Box display="flex" flexDirection="column" gap={1}>
             <Typography>
-                <PhoneIcon /> {contactInfo.phone}
+                <LocalPhoneIcon /> {contactInfo.phone}
             </Typography>
             <Typography>
-                <LanguageIcon /> {contactInfo.website}
+                <PublicIcon /> {contactInfo.website}
             </Typography>
             <Typography>
                 <EmailIcon /> {contactInfo.email}
@@ -24,22 +23,11 @@ const ContactGrid = ({  contactInfo, qrValue }) => (
 
         <Grid2 items xs={12} md={6}>
             <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-                <Typography></Typography>
-                {qrCodeData && (
-                    <QRCodeSection data={qrCodeData} />
-                )}
+                <Typography variant="body1" mb={1}>Scan to visit website</Typography>
+                <QRCode value={contactInfo.website} size={128} />
             </Box>
         </Grid2>
-
     </Grid2>
 );
 
-const QRCodeSection = ({ data }) => {
-    return (
-      <div>
-        <QRCode value={data} />
-      </div>
-    );
-};
-
-export default ContactGrid
+export default ContactGrid;
