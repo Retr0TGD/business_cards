@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import CardForm from './components/form';
+import BusinessCard from './components/BusinessCard';
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
         <p>Fill out the form to generate a business card</p>
       </header>
       <main>
-        <CardForm />
+        <BusinessCard />
       </main>
 
       <footer className="App-footer">

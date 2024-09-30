@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
-import CardForm from './components/form';
-import Header from './components/header';
-import ContactGrid from './components/contact';
-import Company from './components/company';
+import CardForm from './form';
+import Header from './header';
+import ContactGrid from './contact';
+import Company from './company';
 
 const BusinessCard = () => {
   const [cardData, setCardData] = useState(null);
