@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { TextField, Button, Box, Typography, Alert } from '@mui/material';
+import BusinessCard from './BusinessCard';
 
-const CardForm = ({ setFormData }) => {
-    const [formDataLocal, setFormDataLocal] = useState({
+const CardForm = ({ onsubmit }) => {
+    const [formData, setFormData] = useState({
         name: '',
         role: '',
         phone: '',
@@ -12,7 +12,7 @@ const CardForm = ({ setFormData }) => {
     });
 
     const [error, setError] = useState('');
-    const navigate = useNavigate;
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -53,8 +53,10 @@ const CardForm = ({ setFormData }) => {
         }
 
         setError('');
-        setFormData(formDataLocal);
-        console.log("Form submitted:", formDataLocal);
+        setIsSubmitted(true);
+        console.log("Form submitted:", formData);
+
+        if (onsubmit) onsubmit(formData);
     };
 
     return (
