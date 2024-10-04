@@ -54,7 +54,7 @@ const CardForm = ({ setFormData }) => {
 
         setError('');
         setFormData(formDataLocal);
-        navigate('/BusinessCardPage')
+        navigate('/business-card')
         console.log("Form submitted:", formDataLocal);
     };
 

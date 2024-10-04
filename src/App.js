@@ -17,13 +17,13 @@ function App() {
         <Router>
           <Routes>
             <Route path='/' element={<CardForm setFormData={setFormData} />} />
-            <Route path='/BusinessCardPage' element={formData &&<BusinessCardPage formData={formData} />} />
+            <Route path='/business-card' element={formData && <BusinessCardPage formData={formData} />} />
             <Route/>
           </Routes>
         </Router>
       </main>
       <footer className="App-footer">
-        <p>© 2024 Business Card Generator</p>
+        <p>&copy; 2024 Business Card Generator</p>
       </footer>
     </div>
   );
