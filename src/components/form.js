@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { TextField, Button, Box, Typography, Alert } from '@mui/material';
-import BusinessCard from './BusinessCard';
 
-const CardForm = ({ onsubmit }) => {
-    const [formData, setFormData] = useState({
+const CardForm = ({ setFormData }) => {
+    const [formDataLocal, setFormDataLocal] = useState({
         name: '',
         role: '',
         phone: '',
@@ -12,18 +12,18 @@ const CardForm = ({ onsubmit }) => {
     });
 
     const [error, setError] = useState('');
-    const [isSubmitted, setIsSubmitted] = useState(false);
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prevState => ({
+        setFormDataLocal(prevState => ({
             ...prevState,
             [name]: value
         }));
     };
 
     const validateForm = () => {
-        const { name, role, phone, email, website } = formData;
+        const { name, role, phone, email, website } = formDataLocal;
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const websiteRegex = /^https?:\/\/[^\s$.?#].[^\s]*$/i;
@@ -53,77 +53,77 @@ const CardForm = ({ onsubmit }) => {
         }
 
         setError('');
-        setIsSubmitted(true);
-        console.log("Form submitted:", formData);
-
-        if (onsubmit) onsubmit(formData);
+        setFormData(formDataLocal);
+        navigate('/BusinessCardPage')
+        console.log("Form submitted:", formDataLocal);
     };
 
     return (
-        <>
-            <Box component="form" onSubmit={handleSubmit} p={2} maxWidth="400px" mx="auto">
+            <Box component="form" onSubmit={handleSubmit} 
+                sx={{
+                    maxWidth: '400px',
+                    mx: 'auto',
+                    p: 2
+                }}
+            >
                 <Typography variant="h5" mb={2} textAlign="center">Business Card Form</Typography>
 
                 {/* Show error message */}
-                {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+                {error && (
+                    <Alert severity="error" sx={{ mb: 2 }}>
+                        {error}
+                    </Alert>
+                )}
 
                 <TextField
                     fullWidth
                     label="Name"
                     name="name"
-                    value={formData.name}
+                    value={formDataLocal.name}
                     onChange={handleChange}
                     margin="normal"
                     required
-                    aria-label="Name"
                 />
                 <TextField
                     fullWidth
                     label="Role"
                     name="role"
-                    value={formData.role}
+                    value={formDataLocal.role}
                     onChange={handleChange}
                     margin="normal"
                     required
-                    aria-label="Role"
                 />
                 <TextField
                     fullWidth
                     label="Phone (e.g. (+1) 123 456 789)"
                     name="phone"
-                    value={formData.phone}
+                    value={formDataLocal.phone}
                     onChange={handleChange}
                     margin="normal"
                     required
-                    aria-label="Phone"
                 />
                 <TextField
                     fullWidth
                     label="Website (e.g. linkedin.com/profile)"
                     name="website"
-                    value={formData.website}
+                    value={formDataLocal.website}
                     onChange={handleChange}
                     margin="normal"
                     required
-                    aria-label="Website"
                 />
                 <TextField
                     fullWidth
                     label="Email (e.g. name@example.com)"
                     name="email"
-                    value={formData.email}
+                    value={formDataLocal.email}
                     onChange={handleChange}
                     margin="normal"
                     required
-                    aria-label="Email"
                 />
                 <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
                     Generate Business Card
                 </Button>
             </Box>
-
-            {isSubmitted && <BusinessCard contactInfo={formData} />}
-        </>
     );
 };
 

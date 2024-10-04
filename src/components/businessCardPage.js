@@ -1,27 +1,28 @@
 import React from 'react';
-import { Box, Typography, Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom'; // In case the user wants to navigate back
+import { useNavigate } from 'react-router-dom';
 
 const BusinessCardPage = ({ formData }) => {
+    
     const navigate = useNavigate();
 
     if (!formData) {
         return (
-            <Box mt={4} textAlign="center">
-                <Typography variant="h6">No Data Provided</Typography>
-                <Button variant="contained" onClick={() => navigate('/')}>Go Back</Button>
-            </Box>
+            <div>
+                <h2>No Data Provided</h2>
+                <button onClick={() => navigate('/')}>Back to form</button>
+            </div>
         );
     }
 
     return (
-        <Box mt={4} p={2} border={1} borderRadius={2} maxWidth="400px" mx="auto">
-            <Typography variant="h6" mb={1}>{formData.name}</Typography>
-            <Typography variant="subtitle1" mb={1}>{formData.role}</Typography>
-            <Typography variant="body1">Phone: {formData.phone}</Typography>
-            <Typography variant="body1">Website: {formData.website}</Typography>
-            <Typography variant="body1">Email: {formData.email}</Typography>
-        </Box>
+        <div style={{ border: '1px solid black', padding: '20px', maxWidth: '400px', margin: '20px auto' }}>
+            <h2>Business Card</h2>
+            <p><strong>Name:</strong> {formData.name}</p>
+            <p><strong>Role:</strong> {formData.role}</p>
+            <p><strong>Phone:</strong> {formData.phone}</p>
+            <p><strong>Website:</strong> {formData.website}</p>
+            <p><strong>Email:</strong> {formData.email}</p>
+        </div>
     );
 };
 
