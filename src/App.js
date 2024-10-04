@@ -12,13 +12,12 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>Business Card Generator</h1>
-        <p>Fill out the form to generate a business card</p>
       </header>
       <main>
         <Router>
           <Routes>
             <Route path='/' element={<CardForm setFormData={setFormData} />} />
-            <Route path='/BusinessCardPage' element={<BusinessCardPage formData={formData} />} />
+            <Route path='/BusinessCardPage' element={formData &&<BusinessCardPage formData={formData} />} />
             <Route/>
           </Routes>
         </Router>
